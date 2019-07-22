@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_navigation"
+            app:startDestination="@id/mainFragment">
+
+    <fragment android:id="@+id/mainFragment" android:name="com.dwirandyh.wallpaperapp.view.home.MainFragment"
+              android:label="fragment_main" tools:layout="@layout/fragment_main">
+        <action android:id="@+id/actionCategoryWallpaper"
+                app:destination="@+id/categoryWallpaperFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/categoryWallpaperFragment" android:name="com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperFragment"
+              android:label="fragment_category_wallpaper" tools:layout="@layout/fragment_category_wallpaper">
+        <argument android:name="categoryId" app:argType="integer" android:defaultValue="0"/>
+        <argument android:name="categoryName" app:argType="string"/>
+    </fragment>
+</navigation>
