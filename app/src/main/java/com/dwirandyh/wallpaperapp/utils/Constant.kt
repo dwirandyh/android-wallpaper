@@ -7,5 +7,7 @@ class Constant {
         const val BASE_THUMBNAIl_URL = "http://192.168.100.150/images/thumbnail/"
 
         const val EXTRA_WALLPEPR = "EXTRA_WALLPAPER"
+
+        const val EXTERNAL_WALLPAPER_DIR = "/Wallpaper/"
     }
 }
