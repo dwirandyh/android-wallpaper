@@ -13,12 +13,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity
-                android:name=".view.Main2Activity"
-                android:label="@string/title_activity_main2"
-                android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".view.category.CategoryWallpaperActivity">
         </activity>
-        <activity android:name=".view.detail.GalleryActivity">
+        <activity android:name=".view.detail.DetailActivity">
         </activity>
         <activity android:name=".view.home.MainActivity">
             <intent-filter>

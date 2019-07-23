@@ -1,6 +1,7 @@
 package com.dwirandyh.wallpaperapp.data.local
 
 import androidx.room.*
+import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
 import io.reactivex.Single
 
@@ -21,5 +22,4 @@ interface WallpaperDao {
 
     @Query("select * from wallpapers")
     fun getLatestWalllpaper() : Single<List<Wallpaper>>
-
 }

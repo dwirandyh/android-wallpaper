@@ -29,7 +29,7 @@ class IntentUtils {
                     context.startActivity(Intent.createChooser(setAsIntent, "Set as:"))
                 }
             } catch (e: Exception) {
-                Log.e("GalleryActivity", e.message)
+                Log.e("DetailActivity", e.message)
             }
         }
 

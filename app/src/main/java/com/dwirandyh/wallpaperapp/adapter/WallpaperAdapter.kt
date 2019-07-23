@@ -1,20 +1,15 @@
 package com.dwirandyh.wallpaperapp.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
-import android.graphics.Movie
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
-import com.dwirandyh.wallpaperapp.R
-import com.dwirandyh.wallpaperapp.data.local.entity.Category
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
 import com.dwirandyh.wallpaperapp.databinding.ItemWallpaperBinding
 import com.dwirandyh.wallpaperapp.utils.Constant
-import com.dwirandyh.wallpaperapp.view.detail.GalleryActivity
+import com.dwirandyh.wallpaperapp.view.detail.DetailActivity
 
 
 class WallpaperAdapter : PagedListAdapter<Wallpaper, WallpaperAdapter.WallpaperViewHolder>(Wallpaper.CALLBACK) {
@@ -42,7 +37,7 @@ class WallpaperAdapter : PagedListAdapter<Wallpaper, WallpaperAdapter.WallpaperV
                 if (adapterOnClick != null) {
                     adapterOnClick?.invoke(view, item)
                 } else {
-                    val intent = Intent(view.context, GalleryActivity::class.java)
+                    val intent = Intent(view.context, DetailActivity::class.java)
                     intent.putExtra(Constant.EXTRA_WALLPEPR, item)
                     view.context.startActivity(intent)
                 }

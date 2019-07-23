@@ -21,8 +21,7 @@
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:thumbnailPath="@{category.thumbnail}"
-                    android:scaleType="centerCrop"/>
+                    app:thumbnailPath="@{category.thumbnail}"/>
 
             <FrameLayout
                     android:layout_width="match_parent"

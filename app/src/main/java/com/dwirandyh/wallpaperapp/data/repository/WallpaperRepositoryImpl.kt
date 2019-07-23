@@ -99,4 +99,8 @@ class WallpaperRepositoryImpl(
                 Observable.just(wallpaperItems)
             }
     }
+
+    override fun getCategory(categoryId: Int): Observable<Category> {
+        return retrofitInstance.getWallpaperService().getCategory(categoryId)
+    }
 }

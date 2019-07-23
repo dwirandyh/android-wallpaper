@@ -41,7 +41,7 @@ class ImageUtils {
                 fos.flush()
                 fos.close()
             } catch (e: Exception) {
-                Log.e("GalleryActivity", e.message)
+                Log.e("DetailActivity", e.message)
             }
             return file
         }

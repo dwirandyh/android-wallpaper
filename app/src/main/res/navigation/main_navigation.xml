@@ -6,13 +6,8 @@
 
     <fragment android:id="@+id/mainFragment" android:name="com.dwirandyh.wallpaperapp.view.home.MainFragment"
               android:label="fragment_main" tools:layout="@layout/fragment_main">
-        <action android:id="@+id/actionCategoryWallpaper"
-                app:destination="@+id/categoryWallpaperFragment"/>
+        <action android:id="@+id/action_mainFragment_to_aboutFragment" app:destination="@id/aboutFragment"/>
     </fragment>
-
-    <fragment android:id="@+id/categoryWallpaperFragment" android:name="com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperFragment"
-              android:label="fragment_category_wallpaper" tools:layout="@layout/fragment_category_wallpaper">
-        <argument android:name="categoryId" app:argType="integer" android:defaultValue="0"/>
-        <argument android:name="categoryName" app:argType="string"/>
-    </fragment>
+    <fragment android:id="@+id/aboutFragment" android:name="com.dwirandyh.wallpaperapp.view.about.AboutFragment"
+              android:label="about_fragment" tools:layout="@layout/about_fragment"/>
 </navigation>

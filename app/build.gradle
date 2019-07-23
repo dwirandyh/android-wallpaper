@@ -54,6 +54,8 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     // Paging LIbrary
@@ -97,6 +99,9 @@ dependencies {
 
     // FAB with menu
     implementation 'com.getbase:floatingactionbutton:1.10.1'
+
+    // Circle Imageview
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     // Dexter Permission
     implementation 'com.karumi:dexter:5.0.0'

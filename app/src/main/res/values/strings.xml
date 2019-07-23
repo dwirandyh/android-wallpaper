@@ -1,10 +1,22 @@
 <resources>
     <string name="app_name">Wallpaper App</string>
+    <string name="developer_name">Developer Name</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="about_app">About App</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate_app">Rate App</string>
+    <string name="share_app">Share App</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="others">Others</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="disclaimer_text">All the content in this app are under common creative license and the credit goes to
+        their respective owners. No copyright infringement is intended and any request to remove one of the
+        images/logos/names will be honored. This is an unofficial application and we are not affiliated approved of
+        sponsored specially by any company
+    </string>
 </resources>

@@ -3,11 +3,14 @@ package com.dwirandyh.wallpaperapp
 import android.app.Application
 import com.dwirandyh.wallpaperapp.data.local.WallpaperDatabase
 import com.dwirandyh.wallpaperapp.data.remote.RetrofitInstance
+import com.dwirandyh.wallpaperapp.data.repository.FavoriteRepository
+import com.dwirandyh.wallpaperapp.data.repository.FavoriteRepositoryImpl
 import com.dwirandyh.wallpaperapp.data.repository.WallpaperRepository
 import com.dwirandyh.wallpaperapp.data.repository.WallpaperRepositoryImpl
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSource
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSourceFactory
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperViewModelFactory
+import com.dwirandyh.wallpaperapp.view.detail.DetailActivityViewModelFactory
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListDataSource
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListDataSourceFactory
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListViewModel
@@ -30,9 +33,11 @@ class MyApp : Application(), KodeinAware {
 
         bind() from singleton { WallpaperDatabase(instance()) }
         bind() from singleton { instance<WallpaperDatabase>().wallpaperDao() }
+        bind() from singleton { instance<WallpaperDatabase>().favoriteDao() }
 
         bind() from singleton { RetrofitInstance() }
         bind<WallpaperRepository>() with singleton { WallpaperRepositoryImpl(instance(), instance()) }
+        bind<FavoriteRepository>() with singleton { FavoriteRepositoryImpl(instance()) }
 
         bind() from provider { LatestWallpaperDataSource(instance()) }
         bind() from provider { LatestWallpaperDataSourceFactory(instance()) }
@@ -47,5 +52,7 @@ class MyApp : Application(), KodeinAware {
         bind() from provider { CategoryWallpaperDataSource(instance()) }
         bind() from provider { CategoryWallpaperDataSourceFactory(instance()) }
         bind() from factory { categoryId: Int -> CategoryWallpaperViewModelFactory(categoryId, instance()) }
+
+        bind() from provider { DetailActivityViewModelFactory(instance(), instance()) }
     }
 }

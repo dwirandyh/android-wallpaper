@@ -6,7 +6,7 @@
                 type="com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper"/>
         <variable
                 name="handler"
-                type="com.dwirandyh.wallpaperapp.view.detail.GalleryActivity.ClickHandler"/>
+                type="com.dwirandyh.wallpaperapp.view.detail.DetailActivity.ClickHandler"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,13 +14,12 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.detail.GalleryActivity">
+            tools:context=".view.detail.DetailActivity">
 
         <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:id="@+id/imageView"
-                android:scaleType="fitXY"
                 android:src="@drawable/abstract_bg"
                 app:wallpaperPath="@{wallpaper.fileName}"
                 app:layout_constraintEnd_toEndOf="parent"

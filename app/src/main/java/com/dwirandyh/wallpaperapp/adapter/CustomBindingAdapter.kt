@@ -8,6 +8,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.dwirandyh.wallpaperapp.R
 import com.dwirandyh.wallpaperapp.utils.Constant
 
 @BindingAdapter("htmlText")
@@ -26,7 +27,9 @@ fun wallpaperPath(imageView: ImageView, fileName: String) {
     val imageUrl = Constant.BASE_IMAGE_URL + fileName
     Glide.with(imageView.context)
         .load(imageUrl)
-        .thumbnail(0.5f)
+        .thumbnail(0.9f)
+        .centerCrop()
+        .error(R.drawable.ic_broken_image)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(imageView)
 }
@@ -36,7 +39,9 @@ fun thumbnailPath(imageView: ImageView, fileName: String) {
     val imageUrl = Constant.BASE_THUMBNAIl_URL + fileName
     Glide.with(imageView.context)
         .load(imageUrl)
-        .thumbnail(0.5f)
+        .thumbnail(0.9f)
+        .centerCrop()
+        .error(R.drawable.ic_broken_image)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(imageView)
 }

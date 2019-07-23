@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,15 +21,18 @@ import com.dwirandyh.wallpaperapp.utils.GridSpacingItemDecoration
 import com.dwirandyh.wallpaperapp.view.home.MainActivity
 import com.dwirandyh.wallpaperapp.view.home.popular.PopularFragmentViewModel
 import com.dwirandyh.wallpaperapp.view.home.popular.PopularFragmentViewModelFactory
-import kotlinx.android.synthetic.main.fragment_category_wallpaper.*
+import kotlinx.android.synthetic.main.activity_category_wallpaper.*
+import kotlinx.android.synthetic.main.activity_category_wallpaper.toolbar
+import kotlinx.android.synthetic.main.activity_detail.*
 import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
 import org.kodein.di.generic.instance
 import java.lang.ClassCastException
 import java.lang.Exception
 
-class CategoryWallpaperFragment : Fragment(), KodeinAware {
+class CategoryWallpaperActivity : AppCompatActivity(), KodeinAware {
 
     override val kodein by closestKodein()
     private val viewModelFactory:
@@ -34,27 +40,28 @@ class CategoryWallpaperFragment : Fragment(), KodeinAware {
     private lateinit var viewModel: CategoryWallpaperViewModel
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_category_wallpaper, container, false)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_category_wallpaper)
 
-        val safeArgs = arguments?.let {
-            CategoryWallpaperFragmentArgs.fromBundle(it)
-        }
 
-        val categoryId = safeArgs?.categoryId
-        val categoryName = safeArgs?.categoryName
+        val categoryId = intent.getIntExtra("categoryId", 0)
+        val categoryName = intent.getStringExtra("categoryName")
 
-        categoryName?.let {
-            changeTitle(categoryName)
-        }
 
-        viewModel = ViewModelProviders.of(this, categoryId?.let { viewModelFactory(it) })
+        viewModel = ViewModelProviders.of(this, viewModelFactory(categoryId))
             .get(CategoryWallpaperViewModel::class.java)
         viewModel.initPaging()
+
+        toolbar.title = "Category"
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        categoryName?.let {
+            toolbar.title = it
+        }
 
         swipeUpRefresh.setOnRefreshListener {
             viewModel.initPaging()
@@ -64,16 +71,10 @@ class CategoryWallpaperFragment : Fragment(), KodeinAware {
         initRecyclerView()
     }
 
-    private fun changeTitle(title: String){
-        try{
-            (activity as MainActivity).supportActionBar?.title = title
-        }catch (e: Exception){
-            Log.e("CategoryWallpaper", e.message)
-        }
-    }
+
 
     private fun initRecyclerView() {
-        val layoutManager = GridLayoutManager(context, 3)
+        val layoutManager = GridLayoutManager(this, 3)
 
         rvWallpaper.layoutManager = layoutManager
         rvWallpaper.addItemDecoration(GridSpacingItemDecoration(3))
@@ -91,9 +92,11 @@ class CategoryWallpaperFragment : Fragment(), KodeinAware {
         })
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        context?.getString(R.string.app_name)?.let { changeTitle(it) }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null && item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
+
 }

@@ -1,24 +1,20 @@
 package com.dwirandyh.wallpaperapp.view.home.category
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dwirandyh.wallpaperapp.R
 import com.dwirandyh.wallpaperapp.adapter.CategoryAdapter
 import com.dwirandyh.wallpaperapp.data.local.entity.Category
-import com.dwirandyh.wallpaperapp.utils.GridSpacingItemDecoration
-import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperFragment
-import com.dwirandyh.wallpaperapp.view.home.MainFragmentDirections
+import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperActivity
 import kotlinx.android.synthetic.main.fragment_category_list.*
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
@@ -71,7 +67,9 @@ class CategoryListFragment : Fragment(), KodeinAware {
 
     private fun showCategoryWallpaper(view: View, category: Category) {
 
-        val actionDetail = MainFragmentDirections.actionCategoryWallpaper(categoryId = category.id, categoryName = category.name)
-        Navigation.findNavController(view).navigate(actionDetail)
+        val intent = Intent(context, CategoryWallpaperActivity::class.java)
+        intent.putExtra("categoryId", category.id)
+        intent.putExtra("categoryName", category.name)
+        startActivity(intent)
     }
 }
