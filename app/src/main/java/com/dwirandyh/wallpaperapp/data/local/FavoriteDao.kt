@@ -1,5 +1,6 @@
 package com.dwirandyh.wallpaperapp.data.local
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
@@ -17,7 +18,7 @@ interface FavoriteDao {
     fun delete(wallpaperId: Int)
 
     @Query("select * from favorites")
-    fun getFavorites() : Single<List<Favorite>>
+    fun getFavorites() : DataSource.Factory<Int, Favorite>
 
     @Query("select * from favorites where wallpaperId=:wallpaperId")
     fun getFavoriteByWallpaperId(wallpaperId : Int) : Maybe<Favorite>

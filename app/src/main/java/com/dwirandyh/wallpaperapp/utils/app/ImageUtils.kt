@@ -1,4 +1,4 @@
-package com.dwirandyh.wallpaperapp.utils
+package com.dwirandyh.wallpaperapp.utils.app
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -10,7 +10,7 @@ import java.lang.Exception
 import java.net.URL
 import java.net.URLDecoder
 import android.webkit.MimeTypeMap
-
+import com.dwirandyh.wallpaperapp.utils.Constant
 
 
 class ImageUtils {

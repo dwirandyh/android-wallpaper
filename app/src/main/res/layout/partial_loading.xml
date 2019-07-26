@@ -15,5 +15,6 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Loading"
+            android:textColor="@color/textPrimary"
     />
 </LinearLayout>

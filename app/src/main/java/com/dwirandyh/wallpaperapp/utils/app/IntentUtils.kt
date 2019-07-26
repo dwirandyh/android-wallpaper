@@ -1,4 +1,4 @@
-package com.dwirandyh.wallpaperapp.utils
+package com.dwirandyh.wallpaperapp.utils.app
 
 import android.content.Context
 import android.content.Intent

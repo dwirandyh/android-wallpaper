@@ -3,10 +3,15 @@ package com.dwirandyh.wallpaperapp.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
+import androidx.paging.RxPagedListBuilder
+import com.dwirandyh.wallpaperapp.data.local.FavoriteDao
 import com.dwirandyh.wallpaperapp.data.local.WallpaperDao
 import com.dwirandyh.wallpaperapp.data.local.entity.Category
+import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.remote.RetrofitInstance
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
+import com.dwirandyh.wallpaperapp.utils.Constant.Companion.PAGE_SIZE
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver

@@ -5,9 +5,15 @@
             app:startDestination="@id/mainFragment">
 
     <fragment android:id="@+id/mainFragment" android:name="com.dwirandyh.wallpaperapp.view.home.MainFragment"
-              android:label="fragment_main" tools:layout="@layout/fragment_main">
+              android:label="@string/home" tools:layout="@layout/fragment_main">
         <action android:id="@+id/action_mainFragment_to_aboutFragment" app:destination="@id/aboutFragment"/>
+        <action android:id="@+id/action_mainFragment_to_favoriteFragment" app:destination="@id/favoriteFragment"/>
     </fragment>
     <fragment android:id="@+id/aboutFragment" android:name="com.dwirandyh.wallpaperapp.view.about.AboutFragment"
-              android:label="about_fragment" tools:layout="@layout/about_fragment"/>
+              android:label="@string/about_app" tools:layout="@layout/fragment_about"/>
+    <fragment android:id="@+id/favoriteFragment"
+              android:name="com.dwirandyh.wallpaperapp.view.favorite.FavoriteFragment"
+              android:label="@string/favorite"
+              tools:layout="@layout/fragment_favorite"
+    />
 </navigation>

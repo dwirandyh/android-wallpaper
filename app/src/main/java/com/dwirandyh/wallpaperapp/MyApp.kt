@@ -11,6 +11,7 @@ import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSource
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSourceFactory
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperViewModelFactory
 import com.dwirandyh.wallpaperapp.view.detail.DetailActivityViewModelFactory
+import com.dwirandyh.wallpaperapp.view.favorite.FavoriteViewModelFactory
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListDataSource
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListDataSourceFactory
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListViewModel
@@ -53,6 +54,8 @@ class MyApp : Application(), KodeinAware {
         bind() from provider { CategoryWallpaperDataSourceFactory(instance()) }
         bind() from factory { categoryId: Int -> CategoryWallpaperViewModelFactory(categoryId, instance()) }
 
-        bind() from provider { DetailActivityViewModelFactory(instance(), instance()) }
+        bind() from provider { DetailActivityViewModelFactory(instance(), instance(), instance()) }
+
+        bind() from provider { FavoriteViewModelFactory(instance()) }
     }
 }

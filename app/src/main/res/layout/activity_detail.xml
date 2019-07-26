@@ -93,7 +93,7 @@
                     app:fab_colorNormal="@color/buttonTransparent"
                     app:fab_icon="@drawable/ic_image"
                     app:fab_size="mini"
-                    app:fab_title="More from 'abstract'"/>
+                    app:fab_title="More from ''"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnSave"

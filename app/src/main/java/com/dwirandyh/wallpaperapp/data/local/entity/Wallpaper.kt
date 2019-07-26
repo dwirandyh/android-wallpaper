@@ -2,14 +2,10 @@ package com.dwirandyh.wallpaperapp.data.local.entity
 
 
 import androidx.recyclerview.widget.DiffUtil
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.*
-import android.graphics.Movie
-import android.R.id
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 

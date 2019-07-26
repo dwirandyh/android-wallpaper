@@ -9,5 +9,7 @@ class Constant {
         const val EXTRA_WALLPEPR = "EXTRA_WALLPAPER"
 
         const val EXTERNAL_WALLPAPER_DIR = "/Wallpaper/"
+
+        const val PAGE_SIZE = 20
     }
 }

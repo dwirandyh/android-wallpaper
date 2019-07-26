@@ -5,7 +5,7 @@
         <item android:id="@+id/mainFragment"
               android:icon="@drawable/ic_home"
               android:title="@string/home"/>
-        <item android:id="@+id/nav_item_one"
+        <item android:id="@+id/favoriteFragment"
               android:icon="@drawable/ic_favorite_border"
               android:title="@string/favorite"/>
         <item android:id="@+id/aboutFragment"

@@ -4,20 +4,24 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.dwirandyh.wallpaperapp.data.local.entity.Category
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
+import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
 import com.dwirandyh.wallpaperapp.data.repository.FavoriteRepository
 import com.dwirandyh.wallpaperapp.data.repository.WallpaperRepository
+import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSource
+import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSourceFactory
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 class DetailActivityViewModel(
     private val wallpaperRepository: WallpaperRepository,
-    private val favoriteRepository: FavoriteRepository
+    private val favoriteRepository: FavoriteRepository,
+    private val categoryWallpaperDataSource: CategoryWallpaperDataSource
 ) : ViewModel() {
 
     private val _categoryLiveData: MutableLiveData<Category> = MutableLiveData()
@@ -27,6 +31,9 @@ class DetailActivityViewModel(
     private val _isFavorite: MutableLiveData<Boolean> = MutableLiveData()
     val isFavorite: LiveData<Boolean>
         get() = _isFavorite
+
+    private var categoryWallpaperDataSourceFactory: CategoryWallpaperDataSourceFactory? = null
+    var similaWallpaperLiveData: LiveData<PagedList<Wallpaper>>? = null
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -97,6 +104,22 @@ class DetailActivityViewModel(
                 }
             )
         compositeDisposable.add(observableFavorite)
+    }
+
+
+
+    fun getSimilarWallpaper(categoryId: Int) {
+        val config = PagedList.Config.Builder()
+            .setPageSize(18)
+            .setInitialLoadSizeHint(30)
+            .setEnablePlaceholders(false)
+            .build()
+
+        categoryWallpaperDataSource.categoryId = categoryId
+        categoryWallpaperDataSourceFactory = CategoryWallpaperDataSourceFactory(categoryWallpaperDataSource)
+        categoryWallpaperDataSourceFactory?.let {
+            similaWallpaperLiveData = LivePagedListBuilder(it, config).build()
+        }
     }
 
     override fun onCleared() {

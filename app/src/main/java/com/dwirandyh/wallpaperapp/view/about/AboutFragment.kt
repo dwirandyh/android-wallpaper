@@ -9,20 +9,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 
 import com.dwirandyh.wallpaperapp.R
-import com.dwirandyh.wallpaperapp.databinding.AboutFragmentBinding
-import com.dwirandyh.wallpaperapp.utils.AppUtils
+import com.dwirandyh.wallpaperapp.databinding.FragmentAboutBinding
+import com.dwirandyh.wallpaperapp.utils.app.AppUtils
 
 class AboutFragment : Fragment() {
 
 
     private lateinit var viewModel: AboutViewModel
-    private lateinit var binding: AboutFragmentBinding
+    private lateinit var binding: FragmentAboutBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.about_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false)
         return binding.root
     }
 
