@@ -10,10 +10,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import android.R.id.message
 import android.util.Log
+import com.dwirandyh.wallpaperapp.data.repository.CategoryRepository
 
 
 class CategoryWallpaperDataSource(
-    private val wallpaperRepository: WallpaperRepository
+    private val categoryRepository: CategoryRepository
 ) : PageKeyedDataSource<Long, Wallpaper>() {
 
     var categoryId: Int = 0
@@ -23,7 +24,7 @@ class CategoryWallpaperDataSource(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Wallpaper>) {
-        val wallpaperDisposable = wallpaperRepository.getCategoryWallpaper(categoryId, 1)
+        val wallpaperDisposable = categoryRepository.getCategoryWallpaper(categoryId, 1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -40,7 +41,7 @@ class CategoryWallpaperDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Wallpaper>) {
-        val wallpaperDisposable = wallpaperRepository.getCategoryWallpaper(categoryId, (params.key).toInt())
+        val wallpaperDisposable = categoryRepository.getCategoryWallpaper(categoryId, (params.key).toInt())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

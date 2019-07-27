@@ -9,6 +9,7 @@ import androidx.paging.PagedList
 import com.dwirandyh.wallpaperapp.data.local.entity.Category
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
+import com.dwirandyh.wallpaperapp.data.repository.CategoryRepository
 import com.dwirandyh.wallpaperapp.data.repository.FavoriteRepository
 import com.dwirandyh.wallpaperapp.data.repository.WallpaperRepository
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSource
@@ -20,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 
 class DetailActivityViewModel(
     private val wallpaperRepository: WallpaperRepository,
+    private val categoryRepository: CategoryRepository,
     private val favoriteRepository: FavoriteRepository,
     private val categoryWallpaperDataSource: CategoryWallpaperDataSource
 ) : ViewModel() {
@@ -38,7 +40,7 @@ class DetailActivityViewModel(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun getCategory(categoryId: Int): LiveData<Category> {
-        val observableCategory = wallpaperRepository.getCategory(categoryId)
+        val observableCategory = categoryRepository.getCategory(categoryId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

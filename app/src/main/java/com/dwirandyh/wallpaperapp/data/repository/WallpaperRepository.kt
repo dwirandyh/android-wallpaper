@@ -11,12 +11,5 @@ interface WallpaperRepository {
 
     fun getLatestWallpaper(page: Int) : Observable<List<Wallpaper>>
 
-    fun getCategories(page: Int) : Observable<List<Category>>
-
     fun getPopularWallpaper(page: Int) : Observable<List<Wallpaper>>
-
-    fun getCategoryWallpaper(categoryId: Int, page:Int) : Observable<List<Wallpaper>>
-
-    fun getCategory(categoryId: Int) : Observable<Category>
-
 }

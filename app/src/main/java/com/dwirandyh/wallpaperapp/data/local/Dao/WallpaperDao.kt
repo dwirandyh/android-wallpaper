@@ -1,4 +1,4 @@
-package com.dwirandyh.wallpaperapp.data.local
+package com.dwirandyh.wallpaperapp.data.local.Dao
 
 import androidx.room.*
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite

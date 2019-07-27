@@ -1,12 +1,13 @@
 package com.dwirandyh.wallpaperapp
 
 import android.app.Application
+import com.dwirandyh.wallpaperapp.data.local.LocalDataSource
+import com.dwirandyh.wallpaperapp.data.local.LocalDataSourceImpl
 import com.dwirandyh.wallpaperapp.data.local.WallpaperDatabase
+import com.dwirandyh.wallpaperapp.data.remote.RemoteDataSource
+import com.dwirandyh.wallpaperapp.data.remote.RemoteDataSourceImpl
 import com.dwirandyh.wallpaperapp.data.remote.RetrofitInstance
-import com.dwirandyh.wallpaperapp.data.repository.FavoriteRepository
-import com.dwirandyh.wallpaperapp.data.repository.FavoriteRepositoryImpl
-import com.dwirandyh.wallpaperapp.data.repository.WallpaperRepository
-import com.dwirandyh.wallpaperapp.data.repository.WallpaperRepositoryImpl
+import com.dwirandyh.wallpaperapp.data.repository.*
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSource
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSourceFactory
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperViewModelFactory
@@ -37,6 +38,11 @@ class MyApp : Application(), KodeinAware {
         bind() from singleton { instance<WallpaperDatabase>().favoriteDao() }
 
         bind() from singleton { RetrofitInstance() }
+
+        bind<LocalDataSource>() with  provider { LocalDataSourceImpl(instance()) }
+        bind<RemoteDataSource>() with provider { RemoteDataSourceImpl(instance(), instance()) }
+
+        bind<CategoryRepository>() with singleton { CategoryRepositoryImpl(instance()) }
         bind<WallpaperRepository>() with singleton { WallpaperRepositoryImpl(instance(), instance()) }
         bind<FavoriteRepository>() with singleton { FavoriteRepositoryImpl(instance()) }
 
@@ -46,7 +52,7 @@ class MyApp : Application(), KodeinAware {
         bind() from provider { PopularWallpaperDataSource(instance()) }
         bind() from provider { PopularWallpaperDataSourceFactory(instance()) }
         bind() from provider { PopularFragmentViewModelFactory(instance()) }
-        bind() from provider { CategoryListDataSource(instance()) }
+        bind() from provider { CategoryListDataSource(instance(), instance()) }
         bind() from provider { CategoryListDataSourceFactory(instance()) }
         bind() from provider { CategoryListViewModelFactory(instance()) }
 
@@ -54,7 +60,7 @@ class MyApp : Application(), KodeinAware {
         bind() from provider { CategoryWallpaperDataSourceFactory(instance()) }
         bind() from factory { categoryId: Int -> CategoryWallpaperViewModelFactory(categoryId, instance()) }
 
-        bind() from provider { DetailActivityViewModelFactory(instance(), instance(), instance()) }
+        bind() from provider { DetailActivityViewModelFactory(instance(), instance(), instance(), instance()) }
 
         bind() from provider { FavoriteViewModelFactory(instance()) }
     }
