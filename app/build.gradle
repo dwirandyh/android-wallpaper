@@ -106,6 +106,9 @@ dependencies {
     // Dexter Permission
     implementation 'com.karumi:dexter:5.0.0'
 
+    // Google Admob SDK
+    implementation 'com.google.android.gms:play-services-ads:18.2.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

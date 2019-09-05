@@ -8,6 +8,7 @@ import com.dwirandyh.wallpaperapp.data.remote.RemoteDataSource
 import com.dwirandyh.wallpaperapp.data.remote.RemoteDataSourceImpl
 import com.dwirandyh.wallpaperapp.data.remote.RetrofitInstance
 import com.dwirandyh.wallpaperapp.data.repository.*
+import com.dwirandyh.wallpaperapp.utils.AdsUtils
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSource
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSourceFactory
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperViewModelFactory
@@ -32,6 +33,8 @@ class MyApp : Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@MyApp))
+
+        bind() from singleton { AdsUtils(instance()) }
 
         bind() from singleton { WallpaperDatabase(instance()) }
         bind() from singleton { instance<WallpaperDatabase>().wallpaperDao() }

@@ -33,6 +33,11 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/provider_path" />
         </provider>
-    </application>
 
+        <!-- TODO: Put Real Admob APP ID -->
+        <!-- Admob App ID -->
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-3940256099942544~3347511713"/>
+    </application>
 </manifest>
