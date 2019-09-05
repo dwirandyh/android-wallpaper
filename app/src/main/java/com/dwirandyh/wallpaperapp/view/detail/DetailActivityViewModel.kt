@@ -26,6 +26,8 @@ class DetailActivityViewModel(
     private val categoryWallpaperDataSource: CategoryWallpaperDataSource
 ) : ViewModel() {
 
+    private val TAG: String = "DetailActivityViewModel"
+
     private val _categoryLiveData: MutableLiveData<Category> = MutableLiveData()
     private val categoryLiveData: LiveData<Category>
         get() = _categoryLiveData
@@ -43,9 +45,14 @@ class DetailActivityViewModel(
         val observableCategory = categoryRepository.getCategory(categoryId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                _categoryLiveData.postValue(it)
-            }
+            .subscribe(
+                {
+                    _categoryLiveData.postValue(it)
+                },
+                {
+                    Log.e(TAG, it.message)
+                }
+            )
 
         compositeDisposable.add(observableCategory)
 
@@ -109,7 +116,6 @@ class DetailActivityViewModel(
     }
 
 
-
     fun getSimilarWallpaper(categoryId: Int) {
         val config = PagedList.Config.Builder()
             .setPageSize(18)
@@ -118,7 +124,8 @@ class DetailActivityViewModel(
             .build()
 
         categoryWallpaperDataSource.categoryId = categoryId
-        categoryWallpaperDataSourceFactory = CategoryWallpaperDataSourceFactory(categoryWallpaperDataSource)
+        categoryWallpaperDataSourceFactory =
+            CategoryWallpaperDataSourceFactory(categoryWallpaperDataSource)
         categoryWallpaperDataSourceFactory?.let {
             similaWallpaperLiveData = LivePagedListBuilder(it, config).build()
         }

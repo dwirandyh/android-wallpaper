@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -34,6 +35,8 @@ import org.kodein.di.generic.instance
 
 class DetailActivity : AppCompatActivity(), KodeinAware {
 
+    private val TAG: String = "DetailActivity"
+
     override val kodein by closestKodein()
     private val viewModelFactory: DetailActivityViewModelFactory by instance()
 
@@ -54,14 +57,15 @@ class DetailActivity : AppCompatActivity(), KodeinAware {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        wallpaper = intent.getParcelableExtra(Constant.EXTRA_WALLPEPR)
+        wallpaper = intent.getParcelableExtra(Constant.EXTRA_WALLPAPER)
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.wallpaper = wallpaper
         binding.handler = ClickHandler(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java)
         viewModel.getCategory(wallpaper.categoryId).observe(this, Observer {
             category = it
             getSimilarWallpaper(it.id)
@@ -87,7 +91,7 @@ class DetailActivity : AppCompatActivity(), KodeinAware {
         })
     }
 
-    private fun getSimilarWallpaper(categoryId: Int){
+    private fun getSimilarWallpaper(categoryId: Int) {
         viewModel.getSimilarWallpaper(categoryId)
     }
 
@@ -117,57 +121,77 @@ class DetailActivity : AppCompatActivity(), KodeinAware {
         }
 
         fun btnShareClick(view: View) {
-           AppUtils.writeExternalPermission(this@DetailActivity){
-               val disposable = Observable.fromCallable {
-                   val imageUrl = Constant.BASE_IMAGE_URL + wallpaper.fileName
-                   return@fromCallable ImageUtils.saveIntoStorage(imageUrl)
-               }
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread())
-                   .subscribe {
-                       val message =
-                           "Download ${context.getString(R.string.app_name)} in Play Store https://play.google.com/store/apps/details?id=${context.packageName}"
-                       IntentUtils.shareImage(context, it, message)
-                   }
+            AppUtils.writeExternalPermission(this@DetailActivity) {
+                val disposable = Observable.fromCallable {
+                    val imageUrl = Constant.BASE_IMAGE_URL + wallpaper.fileName
+                    return@fromCallable ImageUtils.saveIntoStorage(imageUrl)
+                }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            val message =
+                                "Download ${context.getString(R.string.app_name)} in Play Store https://play.google.com/store/apps/details?id=${context.packageName}"
+                            IntentUtils.shareImage(context, it, message)
+                        },
+                        {
+                            Log.e(TAG, it.message)
+                        }
+                    )
 
-               compositeDisposable.add(disposable)
-           }
+                compositeDisposable.add(disposable)
+            }
         }
 
         fun btnSetAsClick(view: View) {
-           AppUtils.writeExternalPermission(this@DetailActivity) {
-               // Set As
-               val disposable = Observable.fromCallable {
-                   val imageUrl = Constant.BASE_IMAGE_URL + wallpaper.fileName
-                   return@fromCallable ImageUtils.saveIntoStorage(imageUrl)
-               }.subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread())
-                   .subscribe {
-                       IntentUtils.setAs(context, it)
-                   }
+            AppUtils.writeExternalPermission(this@DetailActivity) {
+                // Set As
+                val disposable = Observable.fromCallable {
+                    val imageUrl = Constant.BASE_IMAGE_URL + wallpaper.fileName
+                    return@fromCallable ImageUtils.saveIntoStorage(imageUrl)
+                }.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            IntentUtils.setAs(context, it)
+                        },
+                        {
+                            Log.e(TAG, it.message)
+                        }
+                    )
 
-               compositeDisposable.add(disposable)
-           }
+                compositeDisposable.add(disposable)
+            }
         }
 
         fun btnSaveClick(view: View) {
-           AppUtils.writeExternalPermission(this@DetailActivity){
-               val disposable = Observable.fromCallable {
-                   val imageUrl = Constant.BASE_IMAGE_URL + wallpaper.fileName
-                   return@fromCallable ImageUtils.saveIntoStorage(imageUrl)
-               }.subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread())
-                   .subscribe {
-                       Toast.makeText(context, "Wallpaper saved successfully", Toast.LENGTH_SHORT)
-                           .show()
-                   }
+            AppUtils.writeExternalPermission(this@DetailActivity) {
+                val disposable = Observable.fromCallable {
+                    val imageUrl = Constant.BASE_IMAGE_URL + wallpaper.fileName
+                    return@fromCallable ImageUtils.saveIntoStorage(imageUrl)
+                }.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            Toast.makeText(
+                                context,
+                                "Wallpaper saved successfully",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        },
+                        {
+                            Log.e(TAG, it.message)
+                        }
+                    )
 
-               compositeDisposable.add(disposable)
-           }
+                compositeDisposable.add(disposable)
+            }
         }
 
         fun btnInfo(view: View) {
-            val infoBottomSheet = DetailBottomSheetFragment(wallpaper, viewModel.similaWallpaperLiveData)
+            val infoBottomSheet =
+                DetailBottomSheetFragment(wallpaper, viewModel.similaWallpaperLiveData)
             infoBottomSheet.show(supportFragmentManager, infoBottomSheet.tag)
         }
 
@@ -185,9 +209,9 @@ class DetailActivity : AppCompatActivity(), KodeinAware {
                     wallpaper.views
                 )
 
-                if (it){
+                if (it) {
                     viewModel.removeFavorite(favorite)
-                }else{
+                } else {
                     viewModel.addFavorite(favorite)
                 }
             }

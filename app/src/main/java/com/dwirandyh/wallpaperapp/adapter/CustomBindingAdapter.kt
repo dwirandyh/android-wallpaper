@@ -4,7 +4,6 @@ import android.os.Build
 import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -36,7 +35,7 @@ fun wallpaperPath(imageView: ImageView, fileName: String) {
 
 @BindingAdapter("thumbnailPath")
 fun thumbnailPath(imageView: ImageView, fileName: String) {
-    val imageUrl = Constant.BASE_THUMBNAIl_URL + fileName
+    val imageUrl = Constant.BASE_THUMBNAIL_URL + fileName
     Glide.with(imageView.context)
         .load(imageUrl)
         .thumbnail(0.9f)

@@ -38,7 +38,7 @@ class WallpaperAdapter : PagedListAdapter<Wallpaper, WallpaperAdapter.WallpaperV
                     adapterOnClick?.invoke(view, item)
                 } else {
                     val intent = Intent(view.context, DetailActivity::class.java)
-                    intent.putExtra(Constant.EXTRA_WALLPEPR, item)
+                    intent.putExtra(Constant.EXTRA_WALLPAPER, item)
                     view.context.startActivity(intent)
                 }
             }

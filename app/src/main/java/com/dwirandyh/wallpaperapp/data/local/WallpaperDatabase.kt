@@ -14,7 +14,8 @@ import com.dwirandyh.wallpaperapp.utils.Converters
 
 @Database(
     entities = [Wallpaper::class, Category::class, Favorite::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class WallpaperDatabase : RoomDatabase() {

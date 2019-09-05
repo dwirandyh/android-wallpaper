@@ -15,7 +15,7 @@
 
     <item android:title="@string/others">
         <menu>
-            <group android:checkableBehavior="single">
+            <group android:checkableBehavior="none">
                 <item android:id="@+id/nav_feedback"
                       android:icon="@drawable/ic_feedback"
                       android:title="@string/feedback"/>

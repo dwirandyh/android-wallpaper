@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
 import com.dwirandyh.wallpaperapp.databinding.ItemFavoriteBinding
-import com.dwirandyh.wallpaperapp.databinding.ItemWallpaperBinding
 import com.dwirandyh.wallpaperapp.utils.Constant
 import com.dwirandyh.wallpaperapp.view.detail.DetailActivity
 
@@ -40,7 +39,7 @@ class FavoriteAdapter : PagedListAdapter<Favorite, FavoriteAdapter.FavoriteViewH
                 } else {
                     val intent = Intent(view.context, DetailActivity::class.java)
                     val wallpaper = Wallpaper(item.wallpaperId, item.categoryId, item.createdAt, item.downloads, item.fileName, item.fileSize, item.resolution, null, item.views)
-                    intent.putExtra(Constant.EXTRA_WALLPEPR, wallpaper)
+                    intent.putExtra(Constant.EXTRA_WALLPAPER, wallpaper)
                     view.context.startActivity(intent)
                 }
             }

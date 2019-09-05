@@ -6,6 +6,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.content.FileProvider
 import com.dwirandyh.wallpaperapp.BuildConfig
+import com.dwirandyh.wallpaperapp.R
+import com.dwirandyh.wallpaperapp.utils.Constant
 import java.io.File
 import java.lang.Exception
 
@@ -44,6 +46,15 @@ class IntentUtils {
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 context.startActivity(Intent.createChooser(shareIntent, "Share Wallpaper"))
             }
+        }
+
+        fun sendEmail(context: Context, subject: String, chooserTitle: String) {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse("mailto:")
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(Constant.MY_EMAIL))
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+
+            context.startActivity(Intent.createChooser(intent, chooserTitle))
         }
     }
 }
