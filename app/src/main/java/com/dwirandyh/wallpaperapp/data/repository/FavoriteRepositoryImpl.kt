@@ -2,7 +2,7 @@ package com.dwirandyh.wallpaperapp.data.repository
 
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
-import com.dwirandyh.wallpaperapp.data.local.Dao.FavoriteDao
+import com.dwirandyh.wallpaperapp.data.local.dao.FavoriteDao
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.utils.Constant.Companion.PAGE_SIZE
 import io.reactivex.Maybe

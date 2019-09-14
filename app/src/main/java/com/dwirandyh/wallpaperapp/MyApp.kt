@@ -14,9 +14,6 @@ import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperDataSourceFacto
 import com.dwirandyh.wallpaperapp.view.category.CategoryWallpaperViewModelFactory
 import com.dwirandyh.wallpaperapp.view.detail.DetailActivityViewModelFactory
 import com.dwirandyh.wallpaperapp.view.favorite.FavoriteViewModelFactory
-import com.dwirandyh.wallpaperapp.view.home.category.CategoryListDataSource
-import com.dwirandyh.wallpaperapp.view.home.category.CategoryListDataSourceFactory
-import com.dwirandyh.wallpaperapp.view.home.category.CategoryListViewModel
 import com.dwirandyh.wallpaperapp.view.home.category.CategoryListViewModelFactory
 import com.dwirandyh.wallpaperapp.view.home.latest.LatestFragmentViewModelFactory
 import com.dwirandyh.wallpaperapp.view.home.latest.LatestWallpaperDataSource
@@ -39,13 +36,14 @@ class MyApp : Application(), KodeinAware {
         bind() from singleton { WallpaperDatabase(instance()) }
         bind() from singleton { instance<WallpaperDatabase>().wallpaperDao() }
         bind() from singleton { instance<WallpaperDatabase>().favoriteDao() }
+        bind() from singleton { instance<WallpaperDatabase>().categoryDao() }
 
         bind() from singleton { RetrofitInstance() }
 
-        bind<LocalDataSource>() with  provider { LocalDataSourceImpl(instance()) }
+        bind<LocalDataSource>() with  provider { LocalDataSourceImpl(instance(), instance()) }
         bind<RemoteDataSource>() with provider { RemoteDataSourceImpl(instance(), instance()) }
 
-        bind<CategoryRepository>() with singleton { CategoryRepositoryImpl(instance()) }
+        bind<CategoryRepository>() with singleton { CategoryRepositoryImpl(instance(), instance()) }
         bind<WallpaperRepository>() with singleton { WallpaperRepositoryImpl(instance(), instance()) }
         bind<FavoriteRepository>() with singleton { FavoriteRepositoryImpl(instance()) }
 
@@ -55,8 +53,6 @@ class MyApp : Application(), KodeinAware {
         bind() from provider { PopularWallpaperDataSource(instance()) }
         bind() from provider { PopularWallpaperDataSourceFactory(instance()) }
         bind() from provider { PopularFragmentViewModelFactory(instance()) }
-        bind() from provider { CategoryListDataSource(instance(), instance()) }
-        bind() from provider { CategoryListDataSourceFactory(instance()) }
         bind() from provider { CategoryListViewModelFactory(instance()) }
 
         bind() from provider { CategoryWallpaperDataSource(instance()) }

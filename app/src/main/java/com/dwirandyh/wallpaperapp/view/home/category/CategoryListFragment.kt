@@ -23,50 +23,62 @@ class CategoryListFragment : Fragment(), KodeinAware {
 
     override val kodein by closestKodein()
     private val viewModelFactory: CategoryListViewModelFactory by instance()
-    private lateinit var viewModel: CategoryListViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private lateinit var viewModel: CategoryListViewModel
+    private val categoryAdapter by lazy { CategoryAdapter() }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_category_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CategoryListViewModel::class.java)
-        viewModel.initPaging()
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(CategoryListViewModel::class.java)
 
 
         swipeUpRefresh.setOnRefreshListener {
-            viewModel.initPaging()
+            viewModel.getCategories()
             showCategories()
         }
 
         initRecylcerView()
-    }
-
-    private fun initRecylcerView() {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        rvCategory.layoutManager = layoutManager
-
         showCategories()
     }
 
-    private fun showCategories() {
-        val categoryAdapter = CategoryAdapter()
+    private fun initRecylcerView() {
         categoryAdapter.setOnClickListener { view, category ->
             showCategoryWallpaper(view, category)
         }
-        viewModel.getCategories()?.observe(this, Observer {
-            rvCategory.adapter = categoryAdapter
+
+        rvCategory.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = categoryAdapter
+        }
+    }
+
+    private fun showCategories() {
+        viewModel.getCategories()
+        viewModel.categoriesLiveData.observe(this, Observer {
             categoryAdapter.submitList(it)
             swipeUpRefresh.isRefreshing = false
             layoutLoading.visibility = View.INVISIBLE
         })
+
+//        viewModel.getCategories()?.observe(this, Observer {
+//            rvCategory.adapter = categoryAdapter
+//            categoryAdapter.submitList(it)
+//            swipeUpRefresh.isRefreshing = false
+//            layoutLoading.visibility = View.INVISIBLE
+//        })
     }
 
     private fun showCategoryWallpaper(view: View, category: Category) {
-
         val intent = Intent(context, CategoryWallpaperActivity::class.java)
         intent.putExtra("categoryId", category.id)
         intent.putExtra("categoryName", category.name)

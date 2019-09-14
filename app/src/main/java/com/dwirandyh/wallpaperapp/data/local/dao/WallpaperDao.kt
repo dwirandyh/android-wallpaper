@@ -1,7 +1,6 @@
-package com.dwirandyh.wallpaperapp.data.local.Dao
+package com.dwirandyh.wallpaperapp.data.local.dao
 
 import androidx.room.*
-import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
 import io.reactivex.Single
 

@@ -15,7 +15,7 @@ class RetrofitInstance {
     {
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
         retrofit = Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
+            .baseUrl(Constant.BASE_API_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

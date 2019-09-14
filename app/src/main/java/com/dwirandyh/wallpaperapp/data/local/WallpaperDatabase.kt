@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.dwirandyh.wallpaperapp.data.local.Dao.FavoriteDao
-import com.dwirandyh.wallpaperapp.data.local.Dao.WallpaperDao
+import com.dwirandyh.wallpaperapp.data.local.dao.CategoryDao
+import com.dwirandyh.wallpaperapp.data.local.dao.FavoriteDao
+import com.dwirandyh.wallpaperapp.data.local.dao.WallpaperDao
 import com.dwirandyh.wallpaperapp.data.local.entity.Category
 import com.dwirandyh.wallpaperapp.data.local.entity.Favorite
 import com.dwirandyh.wallpaperapp.data.local.entity.Wallpaper
@@ -22,6 +23,7 @@ abstract class WallpaperDatabase : RoomDatabase() {
 
     abstract fun wallpaperDao(): WallpaperDao
     abstract fun favoriteDao(): FavoriteDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object {
         @Volatile
