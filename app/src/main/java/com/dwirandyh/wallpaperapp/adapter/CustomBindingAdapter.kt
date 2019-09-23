@@ -26,6 +26,7 @@ fun wallpaperPath(imageView: ImageView, fileName: String) {
     val imageUrl = Constant.BASE_IMAGE_URL + fileName
     Glide.with(imageView.context)
         .load(imageUrl)
+        .placeholder(R.drawable.ic_image_placeholder)
         .thumbnail(0.9f)
         .centerCrop()
         .error(R.drawable.ic_broken_image)
@@ -38,6 +39,7 @@ fun thumbnailPath(imageView: ImageView, fileName: String) {
     val imageUrl = Constant.BASE_THUMBNAIL_URL + fileName
     Glide.with(imageView.context)
         .load(imageUrl)
+        .placeholder(R.drawable.ic_image_placeholder)
         .thumbnail(0.9f)
         .centerCrop()
         .error(R.drawable.ic_broken_image)

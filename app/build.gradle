@@ -22,6 +22,8 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        // Support For x64 Architecture
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

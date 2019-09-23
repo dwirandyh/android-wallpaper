@@ -2,7 +2,7 @@ package com.dwirandyh.wallpaperapp.utils
 
 class Constant {
     companion object {
-        private const val BASE_URL = "http://192.168.1.39:8000"
+        private const val BASE_URL = "http://wallpaper.dwirandyh.com"
         const val BASE_API_URL = "${BASE_URL}/v1/"
         const val BASE_IMAGE_URL = "${BASE_URL}/images/wallpaper/"
         const val BASE_THUMBNAIL_URL = "${BASE_URL}/images/thumbnail/"
